@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BJK — Kimono Personalizado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#121110;
+    --ink-soft:#1a1815;
+    --concrete:#211e19;
+    --line:#3a352c;
+    --cream:#EDE8DC;
+    --cream-dim:#c9c4b6;
+    --green-deep:#1E4632;
+    --green-bright:#4FAE6D;
+    --green-line:#8FD4A6;
+    --gold:#D9A441;
+    --white-belt:#EDE8DC;
+    --blue-belt:#3E7CB1;
+    --purple-belt:#6B4E8E;
+    --brown-belt:#6B4226;
+    --black-belt:#141311;
+    --radius:14px;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--cream);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{display:block; max-width:100%;}
+
+  .display{font-family:'Bungee', system-ui, sans-serif; text-transform:uppercase; letter-spacing:.5px; line-height:1.05;}
+  .mono{font-family:'Space Mono', monospace;}
+
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  /* grain overlay */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:999;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,17,16,.85); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:74px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Bungee'; font-size:1.15rem; letter-spacing:.5px;}
+  .brand .dot{width:9px; height:9px; border-radius:50%; background:var(--green-bright);}
+  nav .cta-btn{padding:10px 20px; font-size:.8rem;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--green-bright); color:var(--ink);
+    font-family:'Space Mono', monospace; font-weight:700; font-size:.9rem;
+    text-transform:uppercase; letter-spacing:.5px;
+    padding:14px 26px; border-radius:999px; border:none; cursor:pointer;
+    transition:transform .15s ease, background .15s ease;
+    text-decoration:none;
+  }
+  .btn:hover{transform:translateY(-2px); background:var(--green-line);}
+  .btn.ghost{background:transparent; color:var(--cream); border:1.5px solid var(--line);}
+  .btn.ghost:hover{border-color:var(--green-bright); background:transparent; color:var(--green-bright);}
+
+  /* HERO */
+  .hero{position:relative; padding:64px 0 40px; overflow:hidden;}
+  .hero .wrap{display:grid; grid-template-columns:1.05fr 1fr; gap:40px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Space Mono'; font-size:.78rem; letter-spacing:1.5px;
+    color:var(--green-line); text-transform:uppercase; margin-bottom:18px;
+  }
+  .eyebrow::before{content:''; width:22px; height:2px; background:var(--green-bright); display:inline-block;}
+  h1{font-size:clamp(2.4rem, 5vw, 3.7rem); color:var(--cream);}
+  h1 .accent{color:var(--green-bright); -webkit-text-stroke:1.5px var(--green-line);}
+  .hero p.lede{margin-top:22px; font-size:1.08rem; color:var(--cream-dim); max-width:44ch; line-height:1.6;}
+  .hero-ctas{margin-top:30px; display:flex; gap:14px; flex-wrap:wrap;}
+
+  .kimono-stage{
+    position:relative; aspect-ratio:4/5; border-radius:var(--radius);
+    background:radial-gradient(circle at 50% 20%, #221f1a, var(--ink-soft) 70%);
+    border:1px solid var(--line);
+    cursor:none;
+  }
+  .kimono-layer{position:absolute; inset:0; width:100%; height:100%;}
+  .kimono-layer.custom{
+    -webkit-mask-image:radial-gradient(circle clamp(90px,16vw,170px) at var(--mx,50%) var(--my,120%), #000 0%, #000 55%, transparent 78%);
+    mask-image:radial-gradient(circle clamp(90px,16vw,170px) at var(--mx,50%) var(--my,120%), #000 0%, #000 55%, transparent 78%);
+    transition:mask-position .04s linear, -webkit-mask-position .04s linear;
+  }
+  .hint{
+    position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
+    font-family:'Space Mono'; font-size:.72rem; letter-spacing:1px; text-transform:uppercase;
+    color:var(--cream-dim); background:rgba(0,0,0,.35); padding:6px 12px; border-radius:999px;
+    border:1px solid var(--line); pointer-events:none;
+  }
+  .cursor-dot{
+    position:absolute; width:14px; height:14px; border-radius:50%;
+    border:2px solid var(--green-bright); pointer-events:none;
+    transform:translate(-50%,-50%); left:var(--mx,50%); top:var(--my,120%);
+    transition:left .04s linear, top .04s linear; display:none;
+  }
+  @media (hover:hover){ .cursor-dot{display:block;} }
+
+  /* SECTIONS shared */
+  section{padding:96px 0;}
+  .section-head{max-width:640px; margin-bottom:52px;}
+  .section-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem); margin-top:10px;}
+  .section-head p{margin-top:14px; color:var(--cream-dim); font-size:1.02rem; line-height:1.6;}
+
+  /* GALLERY */
+  .gallery{background:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .card{
+    background:var(--concrete); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; display:flex; flex-direction:column; gap:14px;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .card:hover{transform:translateY(-5px); border-color:var(--green-bright);}
+  .card .icon-box{
+    aspect-ratio:1/1; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background:var(--ink);
+  }
+  .card h3{font-family:'Bungee'; font-size:1rem; font-weight:400; text-transform:uppercase; letter-spacing:.4px;}
+  .card .tag{font-family:'Space Mono'; font-size:.72rem; color:var(--cream-dim); display:flex; align-items:center; gap:8px;}
+  .belt-dot{width:9px; height:9px; border-radius:50%; flex-shrink:0;}
+
+  /* PROCESS */
+  .process-list{position:relative;}
+  .process-list::before{
+    content:''; position:absolute; left:27px; top:8px; bottom:8px; width:2px;
+    background:linear-gradient(var(--green-bright), transparent 95%); opacity:.4;
+  }
+  .step{display:grid; grid-template-columns:56px 1fr; gap:22px; padding:22px 0; align-items:start;}
+  .step .num{
+    font-family:'Bungee'; font-size:1.3rem; color:var(--ink);
+    width:56px; height:56px; border-radius:50%; background:var(--green-bright);
+    display:flex; align-items:center; justify-content:center; z-index:1;
+  }
+  .step h3{font-size:1.15rem; margin-bottom:6px; text-transform:none; font-family:'Work Sans'; font-weight:700;}
+  .step p{color:var(--cream-dim); line-height:1.6; max-width:56ch;}
+
+  /* OPTIONS */
+  .options{background:var(--ink-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .opt-row{
+    display:grid; grid-template-columns:1fr auto auto; gap:18px; align-items:center;
+    padding:20px 0; border-bottom:1px solid var(--line);
+  }
+  .opt-row:last-child{border-bottom:none;}
+  .opt-row h4{font-size:1.08rem; font-weight:600;}
+  .opt-row .desc{color:var(--cream-dim); font-size:.92rem; grid-column:1; margin-top:4px;}
+  .opt-level{display:flex; align-items:center; gap:8px; font-family:'Space Mono'; font-size:.72rem; color:var(--cream-dim); white-space:nowrap;}
+  .opt-level .belt-dot{width:11px; height:11px; border:1.5px solid var(--ink);}
+
+  /* FOOTER / CTA */
+  .final-cta{text-align:center; padding:110px 0 60px;}
+  .final-cta h2{font-size:clamp(2rem,5vw,3.2rem);}
+  .final-cta p{color:var(--cream-dim); margin:18px auto 34px; max-width:48ch;}
+  footer{border-top:1px solid var(--line); padding:32px 0; }
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
+  footer .mono{font-size:.78rem; color:var(--cream-dim);}
+  footer .socials{display:flex; gap:18px; font-family:'Space Mono'; font-size:.8rem;}
+  footer .socials a{color:var(--cream-dim); text-decoration:none;}
+  footer .socials a:hover{color:var(--green-bright);}
+
+  [data-reveal]{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  [data-reveal].in{opacity:1; transform:none;}
+
+  @media (max-width:920px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .opt-row{grid-template-columns:1fr; row-gap:6px;}
+    .opt-row .desc{grid-column:1;}
+  }
+  @media (max-width:560px){
+    .grid{grid-template-columns:1fr;}
+    nav .cta-btn{display:none;}
+    section{padding:64px 0;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>BJK</div>
+    <a href="#contato" class="btn cta-btn">Pedir orçamento</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">BJK · Personalização de Kimono</span>
+      <h1 class="display">Todo kimono<br>sai igual.<br><span class="accent">O seu não vai.</span></h1>
+      <p class="lede">A gente pega o gi de sempre e transforma na sua cara: bordado, faixa, patch, gola. Feito à mão, pensado pro tatame.</p>
+      <div class="hero-ctas">
+        <a href="#contato" class="btn">Quero o meu</a>
+        <a href="#galeria" class="btn ghost">Ver exemplos</a>
+      </div>
+    </div>
+
+    <div class="kimono-stage" id="stage" data-reveal>
+      <svg class="kimono-layer blank" viewBox="0 0 480 600" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#5a554a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+          <polygon points="190,55 290,55 315,165 325,470 155,470 165,165" fill="#292520"/>
+          <polygon points="190,58 72,112 36,206 96,236 168,168" fill="#242019"/>
+          <polygon points="290,58 408,112 444,206 384,236 312,168" fill="#242019"/>
+          <path d="M192,60 L242,258" />
+          <path d="M288,60 L238,258" />
+          <rect x="170" y="332" width="140" height="26" fill="#3a352c" stroke="none"/>
+          <path d="M225,358 L215,430 M255,358 L265,430" />
+          <rect x="205" y="45" width="70" height="16" rx="6" fill="#332f27" stroke="none"/>
+        </g>
+      </svg>
+
+      <svg class="kimono-layer custom" viewBox="0 0 480 600" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="var(--green-line)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+          <polygon points="190,55 290,55 315,165 325,470 155,470 165,165" fill="#EDE8DC"/>
+          <polygon points="190,58 72,112 36,206 96,236 168,168" fill="#e2ddcf"/>
+          <polygon points="290,58 408,112 444,206 384,236 312,168" fill="#e2ddcf"/>
+          <path d="M192,60 L242,258" stroke="var(--green-deep)" stroke-width="6"/>
+          <path d="M288,60 L238,258" stroke="var(--green-deep)" stroke-width="6"/>
+          <rect x="205" y="45" width="70" height="16" rx="6" fill="var(--green-deep)" stroke="none"/>
+          <rect x="170" y="332" width="140" height="26" fill="var(--black-belt)" stroke="none"/>
+          <path d="M225,358 L215,430 M255,358 L265,430" stroke="var(--black-belt)" stroke-width="5"/>
+          <rect x="203" y="150" width="74" height="46" rx="4" fill="var(--ink)" stroke="var(--green-bright)" stroke-width="2"/>
+          <text x="240" y="180" text-anchor="middle" font-family="Bungee" font-size="20" fill="var(--green-bright)" stroke="none">BJK</text>
+          <circle cx="345" cy="200" r="14" fill="var(--gold)" stroke="none"/>
+        </g>
+      </svg>
+
+      <div class="cursor-dot"></div>
+      <span class="hint hover-only">passe o mouse pra ver a personalização</span>
+      <span class="hint touch-only" style="display:none">observando a personalização</span>
+    </div>
+  </div>
+</header>
+
+<section class="gallery" id="galeria">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Saiu da oficina</span>
+      <h2 class="display">Cada faixa,<br>uma assinatura</h2>
+      <p>Alguns kimonos que já passaram pela nossa mesa. Cada aluno pediu de um jeito, cada um saiu diferente.</p>
+    </div>
+
+    <div class="grid">
+      <!-- Card 1 -->
+      <div class="card" data-reveal>
+        <div class="icon-box"><svg width="70%" viewBox="0 0 100 100"><polygon points="40,10 60,10 66,35 68,90 32,90 34,35" fill="none" stroke="var(--white-belt)" stroke-width="3"/><rect x="34" y="55" width="32" height="7" fill="var(--white-belt)"/></svg></div>
+        <h3>Faixa Branca — Estreia</h3>
+        <span class="tag"><span class="belt-dot" style="background:var(--white-belt)"></span>Bordado discreto no peito</span>
+      </div>
+      <!-- Card 2 -->
+      <div class="card" data-reveal>
+        <div class="icon-box"><svg width="70%" viewBox="0 0 100 100"><polygon points="40,10 60,10 66,35 68,90 32,90 34,35" fill="none" stroke="var(--blue-belt)" stroke-width="3"/><rect x="34" y="55" width="32" height="7" fill="var(--blue-belt)"/></svg></div>
+        <h3>Faixa Azul — Rolê de Sábado</h3>
+        <span class="tag"><span class="belt-dot" style="background:var(--blue-belt)"></span>Nome nas costas + gola nova</span>
+      </div>
+      <!-- Card 3 -->
+      <div class="card" data-reveal>
+        <div class="icon-box"><svg width="70%" viewBox="0 0 100 100"><polygon points="40,10 60,10 66,35 68,90 32,90 34,35" fill="none" stroke="var(--purple-belt)" stroke-width="3"/><rect x="34" y="55" width="32" height="7" fill="var(--purple-belt)"/></svg></div>
+        <h3>Faixa Roxa — Sextou no Tatame</h3>
+        <span class="tag"><span class="belt-dot" style="background:var(--purple-belt)"></span>Patch de academia nas mangas</span>
+      </div>
+      <!-- Card 4 -->
+      <div class="card" data-reveal>
+        <div class="icon-box"><svg width="70%" viewBox="0 0 100 100"><polygon points="40,10 60,10 66,35 68,90 32,90 34,35" fill="none" stroke="var(--brown-belt)" stroke-width="3"/><rect x="34" y="55" width="32" height="7" fill="var(--brown-belt)"/></svg></div>
+        <h3>Faixa Marrom — Cria da Casa</h3>
+        <span class="tag"><span class="belt-dot" style="background:var(--brown-belt)"></span>Kit completo: bordado + patch</span>
+      </div>
+      <!-- Card 5 -->
+      <div class="card" data-reveal>
+        <div class="icon-box"><svg width="70%" viewBox="0 0 100 100"><polygon points="40,10 60,10 66,35 68,90 32,90 34,35" fill="none" stroke="var(--black-belt)" stroke-width="3"/><rect x="34" y="55" width="32" height="7" fill="var(--black-belt)"/></svg></div>
+        <h3>Faixa Preta — Sem Choro</h3>
+        <span class="tag"><span class="belt-dot" style="background:var(--black-belt); border:1px solid var(--line)"></span>Faixa com nome bordado</span>
+      </div>
+      <!-- Card 6 -->
+      <div class="card" data-reveal>
+        <div class="icon-box"><svg width="70%" viewBox="0 0 100 100"><polygon points="40,10 60,10 66,35 68,90 32,90 34,35" fill="none" stroke="var(--gold)" stroke-width="3"/><rect x="34" y="55" width="32" height="7" fill="var(--gold)"/></svg></div>
+        <h3>Absoluto — All In</h3>
+        <span class="tag"><span class="belt-dot" style="background:var(--gold)"></span>Projeto do zero, sem limite</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Como funciona</span>
+      <h2 class="display">Do rascunho<br>ao tatame</h2>
+    </div>
+    <div class="process-list">
+      <div class="step" data-reveal>
+        <div class="num">01</div>
+        <div><h3>Manda a ideia</h3><p>Foto de referência, nome, escudo da equipe ou só aquele rolê que você tem na cabeça.</p></div>
+      </div>
+      <div class="step" data-reveal>
+        <div class="num">02</div>
+        <div><h3>A gente desenha</h3><p>Arte em até 24h pra você aprovar antes de qualquer agulha encostar no tecido.</p></div>
+      </div>
+      <div class="step" data-reveal>
+        <div class="num">03</div>
+        <div><h3>Ajusta até ficar</h3><p>Muda cor de faixa, posição do patch, tamanho do bordado — quantas vezes precisar.</p></div>
+      </div>
+      <div class="step" data-reveal>
+        <div class="num">04</div>
+        <div><h3>Vai pra produção</h3><p>Kimono de competição, feito na oficina, com o mesmo capricho de sempre.</p></div>
+      </div>
+      <div class="step" data-reveal>
+        <div class="num">05</div>
+        <div><h3>Chega na sua casa</h3><p>Pronto pra estrear no próximo treino ou naquela competição que você tá de olho.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="options" id="opcoes">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">O que dá pra mexer</span>
+      <h2 class="display">Do discreto<br>ao sem limite</h2>
+      <p>Cada item abaixo tem um nível de "quanto aparece" — a cor mostra o quanto o kimono vira seu.</p>
+    </div>
+    <div data-reveal>
+      <div class="opt-row">
+        <div><h4>Bordado no peito</h4><div class="desc">Nome, apelido ou frase, no fio ou na cor que você escolher.</div></div>
+        <div class="opt-level"><span class="belt-dot" style="background:var(--white-belt); border:1px solid var(--line)"></span>discreto</div>
+      </div>
+      <div class="opt-row">
+        <div><h4>Patch nas mangas e costas</h4><div class="desc">Escudo de academia, patrocinador ou arte própria, costurado ou termocolante.</div></div>
+        <div class="opt-level"><span class="belt-dot" style="background:var(--blue-belt)"></span>visível</div>
+      </div>
+      <div class="opt-row">
+        <div><h4>Cor da faixa e da gola</h4><div class="desc">Faixa customizada com o nome, gola reforçada em cor contrastante.</div></div>
+        <div class="opt-level"><span class="belt-dot" style="background:var(--purple-belt)"></span>marcante</div>
+      </div>
+      <div class="opt-row">
+        <div><h4>Projeto do zero</h4><div class="desc">A gente desenha um kimono só seu, do corte à última costura.</div></div>
+        <div class="opt-level"><span class="belt-dot" style="background:var(--gold)"></span>sem limite</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="contato">
+  <div class="wrap" data-reveal>
+    <span class="eyebrow" style="justify-content:center">Bora nessa?</span>
+    <h2 class="display">Monta o seu kimono</h2>
+    <p>Manda uma mensagem contando a ideia — em pouco tempo a gente já te devolve um rascunho.</p>
+    <a href="https://wa.me/5519999999999?text=Oi%2C%20quero%20personalizar%20meu%20kimono!" target="_blank" class="btn">Chamar no WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">BJK — personalização de kimono, feito à mão em Campinas/SP.</span>
+    <div class="socials">
+      <a href="#" target="_blank">@bjk.kimonos</a>
+      <a href="https://wa.me/5519999999999" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const stage = document.getElementById('stage');
+  const dot = document.querySelector('.cursor-dot');
+  const hoverTouchHint = document.querySelector('.hint.touch-only');
+  const hoverOnlyHint = document.querySelector('.hint.hover-only');
+  const hasHover = window.matchMedia('(hover: hover)').matches;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(reduced){
+    stage.style.setProperty('--mx','50%');
+    stage.style.setProperty('--my','40%');
+    hoverOnlyHint.style.display='none';
+  } else if(hasHover){
+    stage.addEventListener('mousemove', (e)=>{
+      const r = stage.getBoundingClientRect();
+      const x = ((e.clientX - r.left)/r.width*100).toFixed(1)+'%';
+      const y = ((e.clientY - r.top)/r.height*100).toFixed(1)+'%';
+      stage.style.setProperty('--mx', x);
+      stage.style.setProperty('--my', y);
+    });
+    stage.addEventListener('mouseleave', ()=>{
+      stage.style.setProperty('--mx','50%');
+      stage.style.setProperty('--my','120%');
+    });
+  } else {
+    hoverOnlyHint.style.display='none';
+    hoverTouchHint.style.display='inline';
+    let t = 0;
+    function loop(){
+      t += 0.012;
+      const x = (50 + 32*Math.sin(t)).toFixed(1)+'%';
+      const y = (48 + 28*Math.cos(t*0.8)).toFixed(1)+'%';
+      stage.style.setProperty('--mx', x);
+      stage.style.setProperty('--my', y);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  }
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

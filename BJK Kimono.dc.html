@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&amp;family=Permanent+Marker&amp;family=Rubik+Spray+Paint&amp;family=Work+Sans:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:#121110;-webkit-font-smoothing:antialiased;background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.018),transparent 40%),radial-gradient(circle at 85% 60%,rgba(255,255,255,.015),transparent 45%);}
+  ::selection{background:#4FAE6D;color:#121110;}
+  @keyframes bjkFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  @keyframes bjkPulse{0%,100%{opacity:.45}50%{opacity:.9}}
+  @keyframes bjkMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1 !important;transform:none !important;} [data-marquee]{animation:none !important;}}
+</style>
+</helmet>
+
+<div style="background:#121110;color:#EDE8DC;font-family:'Work Sans',sans-serif;overflow-x:hidden;position:relative;min-height:100vh;">
+
+  <!-- grain -->
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.055;mix-blend-mode:overlay;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');"></div>
+
+  <!-- NAV -->
+  <nav style="position:sticky;top:0;z-index:50;background:rgba(18,17,16,.82);backdrop-filter:blur(10px);border-bottom:1px solid #2a2721;">
+    <div style="max-width:1180px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:76px;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <img src="assets/bjk-logo.jpg" alt="BJK" style="height:38px;width:auto;border-radius:8px;display:block;">
+        <span style="font-family:'Bungee',sans-serif;font-size:1.05rem;letter-spacing:.5px;color:#EDE8DC;">BJK</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:26px;">
+        <a href="#galeria" style="font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.5px;text-transform:uppercase;color:#c9c4b6;text-decoration:none;">Galeria</a>
+        <a href="#como" style="font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.5px;text-transform:uppercase;color:#c9c4b6;text-decoration:none;">Como funciona</a>
+        <a href="#opcoes" style="font-family:'Space Mono',monospace;font-size:.76rem;letter-spacing:.5px;text-transform:uppercase;color:#c9c4b6;text-decoration:none;">Personalizar</a>
+        <a href="#contato" style="display:inline-flex;align-items:center;gap:8px;background:#4FAE6D;color:#121110;font-family:'Space Mono',monospace;font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.5px;padding:11px 20px;border-radius:999px;text-decoration:none;">Pedir orçamento</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header style="position:relative;padding:70px 0 48px;overflow:hidden;">
+    <div style="position:absolute;top:-10%;left:-8%;width:420px;height:420px;background:radial-gradient(circle,rgba(79,174,109,.14),transparent 70%);pointer-events:none;"></div>
+    
+    <div style="max-width:1180px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1.02fr 1fr;gap:48px;align-items:center;" data-hero-grid="">
+      <div style="position: relative">
+        <span data-reveal="" style="display:inline-flex;align-items:center;gap:9px;font-family:'Rubik Spray Paint',sans-serif;font-size:1rem;letter-spacing:1.5px;color:#8FD4A6;text-transform:uppercase;transform:rotate(-2deg);margin-bottom:22px;">
+          <span style="width:24px;height:2px;background:#4FAE6D;display:inline-block;"></span>Personalização de Kimono
+        </span>
+        <h1 data-reveal="" style="font-family:'Bungee',sans-serif;text-transform:uppercase;line-height:1.04;font-size:clamp(2.5rem,5.2vw,4rem);color:#EDE8DC;">
+          Todo kimono<br>sai igual.<br><span style="position:relative;display:inline-block;">
+            <svg viewBox="0 0 360 92" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-5%;top:4%;width:110%;height:92%;">
+              <defs><filter id="spray1" x="-15%" y="-40%" width="130%" height="180%"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.15" numOctaves="2" seed="7" result="n"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="20"></feDisplacementMap></filter></defs>
+              <rect x="10" y="12" width="340" height="66" rx="12" fill="#1E4632" filter="url(#spray1)"></rect>
+            </svg>
+            <span style="position:relative;color:#EDE8DC;">O seu não vai.</span>
+          </span>
+        </h1>
+        <p data-reveal="" style="margin-top:24px;font-size:1.1rem;color:#c9c4b6;max-width:44ch;line-height:1.6;">
+          A gente pega o gi de sempre e transforma na sua cara: bordado no peito, patch nas mangas, faixa e gola do seu jeito. Feito à mão, pensado pro tatame.
+        </p>
+        <div data-reveal="" style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="#contato" style="display:inline-flex;align-items:center;gap:8px;background:#4FAE6D;color:#121110;font-family:'Space Mono',monospace;font-weight:700;font-size:.9rem;text-transform:uppercase;letter-spacing:.5px;padding:15px 28px;border-radius:999px;text-decoration:none;">Quero o meu</a>
+          <a href="#galeria" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#EDE8DC;border:1.5px solid #3a352c;font-family:'Space Mono',monospace;font-weight:700;font-size:.9rem;text-transform:uppercase;letter-spacing:.5px;padding:15px 28px;border-radius:999px;text-decoration:none;">Ver exemplos</a>
+        </div>
+        <div data-reveal="" style="margin-top:16px;font-family:'Permanent Marker',cursive;color:#8FD4A6;font-size:1.05rem;transform:rotate(-2.5deg);display:inline-block;">↳ o rascunho é de graça, é só chamar</div>
+        <div data-reveal="" style="margin-top:34px;display:flex;gap:26px;flex-wrap:wrap;">
+          <div><div style="font-family:'Bungee',sans-serif;font-size:1.5rem;color:#EDE8DC;">+500</div><div style="font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#8a8578;">kimonos na rua</div></div>
+          <div><div style="font-family:'Bungee',sans-serif;font-size:1.5rem;color:#EDE8DC;">24h</div><div style="font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#8a8578;">pra 1º rascunho</div></div>
+          <div><div style="font-family:'Bungee',sans-serif;font-size:1.5rem;color:#EDE8DC;">100%</div><div style="font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:#8a8578;">feito à mão</div></div>
+        </div>
+      <div aria-hidden="true" style="position: absolute; left: 35px; font-family: 'Rubik Spray Paint',sans-serif; font-size: clamp(7rem,20vw,18rem); line-height: .75; color: transparent; -webkit-text-stroke: 2px rgba(143,212,166,.07); pointer-events: none; user-select: none; z-index: 0; transform: rotate(-6deg); top: 417px">JIU</div></div>
+
+      <div id="stage" style="position:relative;aspect-ratio:1122/1402;border-radius:16px;background:radial-gradient(circle at 50% 25%,#201d18,#100f0d 72%);border:1px solid #2a2721;overflow:hidden;cursor:none;">
+        <img src="assets/kimono-base.png" alt="Kimono base" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none;pointer-events:none;">
+        <img id="customLayer" src="assets/kimono-custom.png" alt="Kimono personalizado BJK" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none;pointer-events:none;-webkit-mask-image:radial-gradient(circle 150px at 50% 130%,#000 0%,#000 56%,transparent 80%);mask-image:radial-gradient(circle 150px at 50% 130%,#000 0%,#000 56%,transparent 80%);">
+        <div id="cursorDot" style="position:absolute;width:150px;height:150px;border-radius:50%;border:1.5px dashed rgba(79,174,109,.6);pointer-events:none;transform:translate(-50%,-50%);left:50%;top:130%;box-shadow:0 0 40px rgba(79,174,109,.15) inset;"></div>
+        <span id="hintHover" style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:#c9c4b6;background:rgba(0,0,0,.4);padding:7px 13px;border-radius:999px;border:1px solid #2a2721;pointer-events:none;">passe o mouse pra pintar a arte</span>
+        <img src="assets/bjk-logo.jpg" alt="" aria-hidden="true" style="position:absolute;top:14px;right:14px;width:66px;height:auto;border-radius:8px;transform:rotate(9deg);box-shadow:0 8px 20px rgba(0,0,0,.55);border:3px solid #EDE8DC;pointer-events:none;">
+        <span aria-hidden="true" style="position:absolute;bottom:16px;left:16px;font-family:'Permanent Marker',cursive;color:#8FD4A6;font-size:1rem;transform:rotate(-5deg);pointer-events:none;">base → sua arte</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- marquee strip -->
+  <div style="position:relative;background:#1E4632;border-top:3px solid #0f2b1e;">
+    <div style="overflow:hidden;">
+      <div data-marquee="" style="display:flex;align-items:center;gap:34px;padding:15px 0;width:max-content;white-space:nowrap;animation:bjkMarquee 24s linear infinite;font-family:'Rubik Spray Paint',sans-serif;font-size:1.2rem;letter-spacing:1px;color:#EDE8DC;">
+        <span>BORDADO NO PEITO</span><span style="color:#8FD4A6;">◆</span><span>PATCH NAS MANGAS</span><span style="color:#8FD4A6;">◆</span><span>FAIXA CUSTOMIZADA</span><span style="color:#8FD4A6;">◆</span><span>PROJETO DO ZERO</span><span style="color:#8FD4A6;">◆</span><span>FEITO NO BRASIL</span><span style="color:#8FD4A6;">◆</span>
+        <span>BORDADO NO PEITO</span><span style="color:#8FD4A6;">◆</span><span>PATCH NAS MANGAS</span><span style="color:#8FD4A6;">◆</span><span>FAIXA CUSTOMIZADA</span><span style="color:#8FD4A6;">◆</span><span>PROJETO DO ZERO</span><span style="color:#8FD4A6;">◆</span><span>FEITO NO BRASIL</span><span style="color:#8FD4A6;">◆</span>
+      </div>
+    </div>
+    <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:-13px;height:16px;display:flex;justify-content:space-around;align-items:flex-start;pointer-events:none;">
+      <span style="width:8px;height:10px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:18px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:7px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:22px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:12px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:15px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:9px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:20px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:11px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:16px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:8px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:19px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:13px;background:#1E4632;border-radius:0 0 20px 20px;"></span><span style="width:8px;height:10px;background:#1E4632;border-radius:0 0 20px 20px;"></span>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section id="galeria" style="padding:104px 0;background:#161410;border-bottom:1px solid #2a2721;">
+    <div style="max-width:1180px;margin:0 auto;padding:0 28px;">
+      <div data-reveal="" style="max-width:640px;margin-bottom:54px;">
+        <span style="display:inline-flex;align-items:center;gap:9px;font-family:'Rubik Spray Paint',sans-serif;font-size:1rem;letter-spacing:1.5px;color:#8FD4A6;text-transform:uppercase;transform:rotate(-2deg);margin-bottom:14px;"><span style="width:24px;height:2px;background:#4FAE6D;display:inline-block;"></span>Saiu da oficina</span>
+        <h2 style="font-family:'Bungee',sans-serif;text-transform:uppercase;line-height:1.05;font-size:clamp(1.9rem,3.6vw,2.7rem);color:#EDE8DC;">Cada faixa,<br>uma assinatura</h2>
+        <p style="margin-top:16px;color:#c9c4b6;font-size:1.02rem;line-height:1.6;">Alguns kimonos que já passaram pela nossa mesa. Cada aluno pediu de um jeito — cada um saiu diferente.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;" data-gallery-grid="">
+        <sc-for list="{{ gallery }}" as="item" hint-placeholder-count="6">
+          <div data-reveal="" style="background:#211e19;border:1px solid #2a2721;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:15px;transition:transform .22s ease,border-color .22s ease;" style-hover="transform:translateY(-6px) rotate(-1deg);border-color:#4FAE6D;">
+            <div style="aspect-ratio:4/5;border-radius:10px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 25%,#211d18,#0f0e0c 78%);position:relative;overflow:hidden;">
+              <sc-if value="{{ item.hasImg }}" hint-placeholder-val="{{ false }}">
+                <img data-src="{{ item.img }}" alt="{{ item.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;">
+                <span style="position:absolute;top:12px;left:12px;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:1px;text-transform:uppercase;color:#EDE8DC;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);padding:5px 9px;border-radius:999px;border:1px solid rgba(237,232,220,.15);display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:{{ item.beltColor }};border:{{ item.beltBorder }};"></span>na rua</span>
+              </sc-if>
+              <sc-if value="{{ item.noImg }}" hint-placeholder-val="{{ true }}">
+                
+              </sc-if>
+            </div>
+            <h3 style="font-family:'Bungee',sans-serif;font-size:1rem;font-weight:400;text-transform:uppercase;letter-spacing:.4px;color:#EDE8DC;line-height:1.25;">{{ item.name }}</h3>
+            <span style="font-family:'Space Mono',monospace;font-size:.74rem;color:#c9c4b6;display:flex;align-items:center;gap:9px;">
+              <span style="width:11px;height:11px;border-radius:50%;flex-shrink:0;background:{{ item.beltColor }};border:{{ item.beltBorder }};"></span>{{ item.tag }}
+            </span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="como" style="padding:104px 0;">
+    <div style="max-width:1180px;margin:0 auto;padding:0 28px;">
+      <div data-reveal="" style="max-width:640px;margin-bottom:44px;">
+        <span style="display:inline-flex;align-items:center;gap:9px;font-family:'Rubik Spray Paint',sans-serif;font-size:1rem;letter-spacing:1.5px;color:#8FD4A6;text-transform:uppercase;transform:rotate(-2deg);margin-bottom:14px;"><span style="width:24px;height:2px;background:#4FAE6D;display:inline-block;"></span>Como funciona</span>
+        <h2 style="font-family:'Bungee',sans-serif;text-transform:uppercase;line-height:1.05;font-size:clamp(1.9rem,3.6vw,2.7rem);color:#EDE8DC;">Do rascunho<br>ao tatame</h2>
+      </div>
+      <div style="position:relative;" data-process-list="">
+        <sc-for list="{{ steps }}" as="item" hint-placeholder-count="5">
+          <div data-reveal="" style="display:grid;grid-template-columns:70px 1fr;gap:24px;padding:22px 0;align-items:start;">
+            <div style="font-family:'Rubik Spray Paint',sans-serif;font-size:2rem;color:#4FAE6D;width:70px;height:70px;border-radius:50%;border:2px dashed rgba(79,174,109,.5);display:flex;align-items:center;justify-content:center;transform:rotate(-5deg);">{{ item.n }}</div>
+            <div>
+              <h3 style="font-size:1.18rem;margin-bottom:6px;font-weight:700;color:#EDE8DC;">{{ item.h }}</h3>
+              <p style="color:#c9c4b6;line-height:1.6;max-width:56ch;">{{ item.p }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPTIONS -->
+  <section id="opcoes" style="padding:104px 0;background:#161410;border-top:1px solid #2a2721;border-bottom:1px solid #2a2721;">
+    <div style="max-width:1180px;margin:0 auto;padding:0 28px;">
+      <div data-reveal="" style="max-width:640px;margin-bottom:44px;">
+        <span style="display:inline-flex;align-items:center;gap:9px;font-family:'Rubik Spray Paint',sans-serif;font-size:1rem;letter-spacing:1.5px;color:#8FD4A6;text-transform:uppercase;transform:rotate(-2deg);margin-bottom:14px;"><span style="width:24px;height:2px;background:#4FAE6D;display:inline-block;"></span>O que dá pra mexer</span>
+        <h2 style="font-family:'Bungee',sans-serif;text-transform:uppercase;line-height:1.05;font-size:clamp(1.9rem,3.6vw,2.7rem);color:#EDE8DC;">Do discreto<br>ao sem limite</h2>
+        <p style="margin-top:16px;color:#c9c4b6;font-size:1.02rem;line-height:1.6;">Cada item tem um nível de "quanto aparece" — a cor da faixa mostra o quanto o kimono vira a sua cara.</p>
+      </div>
+      <div data-reveal="" style="" data-options-list="">
+        <sc-for list="{{ options }}" as="item" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:22px 0;border-bottom:1px solid #2a2721;">
+            <div>
+              <h4 style="font-size:1.1rem;font-weight:600;color:#EDE8DC;margin-bottom:4px;">{{ item.h }}</h4>
+              <div style="color:#c9c4b6;font-size:.94rem;line-height:1.5;">{{ item.d }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;font-family:'Space Mono',monospace;font-size:.74rem;color:#c9c4b6;text-transform:uppercase;white-space:nowrap;">
+              <span style="width:11px;height:11px;border-radius:50%;flex-shrink:0;background:{{ item.beltColor }};border:{{ item.beltBorder }};"></span>{{ item.level }}
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="contato" style="text-align:center;padding:118px 28px 70px;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:640px;height:640px;max-width:100%;background:radial-gradient(circle,rgba(30,70,50,.5),transparent 68%);pointer-events:none;"></div>
+    <div data-reveal="" style="position:relative;max-width:720px;margin:0 auto;">
+      <span style="display:inline-flex;align-items:center;gap:9px;justify-content:center;font-family:'Rubik Spray Paint',sans-serif;font-size:1rem;letter-spacing:1.5px;color:#8FD4A6;text-transform:uppercase;transform:rotate(-2deg);margin-bottom:18px;">Bora nessa?</span>
+      <h2 style="font-family:'Bungee',sans-serif;text-transform:uppercase;line-height:1.12;font-size:clamp(2.1rem,5.2vw,3.5rem);color:#EDE8DC;">Monta o<br><span style="position:relative;display:inline-block;">
+        <svg viewBox="0 0 420 92" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-4%;top:6%;width:108%;height:90%;">
+          <defs><filter id="spray2" x="-15%" y="-40%" width="130%" height="180%"><feTurbulence type="fractalNoise" baseFrequency="0.013 0.14" numOctaves="2" seed="3" result="n2"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n2" scale="20"></feDisplacementMap></filter></defs>
+          <rect x="10" y="12" width="400" height="66" rx="12" fill="#1E4632" filter="url(#spray2)"></rect>
+        </svg>
+        <span style="position:relative;color:#EDE8DC;padding:0 14px;">seu kimono</span>
+      </span></h2>
+      <p style="color:#c9c4b6;margin:20px auto 36px;max-width:46ch;font-size:1.08rem;line-height:1.6;">Manda uma mensagem contando a ideia. Em pouco tempo a gente devolve um rascunho pra você aprovar.</p>
+      <a href="https://wa.me/5519999999999?text=Oi%2C%20quero%20personalizar%20meu%20kimono!" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:#4FAE6D;color:#121110;font-family:'Space Mono',monospace;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:.5px;padding:17px 34px;border-radius:999px;text-decoration:none;box-shadow:0 12px 40px rgba(79,174,109,.25);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#121110"><path d="M17.5 14.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12 2C6.48 2 2 6.48 2 12c0 1.77.46 3.43 1.27 4.87L2 22l5.25-1.38A9.93 9.93 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"></path></svg>
+        Chamar no WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid #2a2721;padding:34px 0;">
+    <div style="max-width:1180px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <img src="assets/bjk-logo.jpg" alt="BJK" style="height:32px;width:auto;border-radius:7px;display:block;">
+        <span style="font-family:'Space Mono',monospace;font-size:.76rem;color:#8a8578;">Personalização de kimono · feito à mão em Campinas/SP</span>
+      </div>
+      <div style="display:flex;gap:20px;font-family:'Space Mono',monospace;font-size:.8rem;">
+        <a href="#" target="_blank" style="color:#c9c4b6;text-decoration:none;">@bjk.kimonos</a>
+        <a href="https://wa.me/5519999999999" target="_blank" style="color:#c9c4b6;text-decoration:none;">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const belts = {
+      white:'#EDE8DC', blue:'#3E7CB1', purple:'#6B4E8E', brown:'#6B4226', black:'#141311', gold:'#D9A441'
+    };
+    const bd = (b) => b==='white' ? '1.5px solid #3a352c' : (b==='black' ? '1px solid #3a352c' : 'none');
+    const gallery = [
+      {belt:'white',  name:'Faixa Branca — Estreia',        tag:'Bordado discreto no peito',  img:'assets/gallery/atleta-branca.png'},
+      {belt:'blue',   name:'Faixa Azul — Rolê de Sábado',   tag:'Nome nas costas + gola nova', img:'assets/gallery/exemplo-05.webp'},
+      {belt:'purple', name:'Faixa Roxa — Sextou no Tatame', tag:'Patch de academia nas mangas', img:'assets/gallery/exemplo-04.webp'},
+      {belt:'brown',  name:'Faixa Marrom — Cria da Casa',   tag:'Kit completo: bordado + patch', img:'assets/gallery/exemplo-01.webp'},
+      {belt:'black',  name:'Faixa Preta — Sem Choro',       tag:'Faixa com nome bordado', img:'assets/gallery/exemplo-02.webp'},
+      {belt:'gold',   name:'Absoluto — All In',             tag:'Projeto do zero, sem limite', img:'assets/gallery/exemplo-03.webp'},
+    ].map(c => ({...c, beltColor: belts[c.belt], beltBorder: bd(c.belt), hasImg: !!c.img, noImg: !c.img}));
+    const steps = [
+      {n:'01', h:'Manda a ideia',       p:'Foto de referência, nome, escudo da equipe ou só aquele rolê que você tem na cabeça.'},
+      {n:'02', h:'A gente desenha',     p:'Arte em até 24h pra você aprovar antes de qualquer agulha encostar no tecido.'},
+      {n:'03', h:'Ajusta até ficar',    p:'Muda cor de faixa, posição do patch, tamanho do bordado — quantas vezes precisar.'},
+      {n:'04', h:'Vai pra produção',    p:'Kimono de competição, feito na oficina, com o mesmo capricho de sempre.'},
+      {n:'05', h:'Chega na sua casa',   p:'Pronto pra estrear no próximo treino ou naquela competição que você tá de olho.'},
+    ];
+    const options = [
+      {h:'Bordado no peito',          d:'Nome, apelido ou frase, no fio ou na cor que você escolher.',              belt:'white',  level:'discreto'},
+      {h:'Patch nas mangas e costas', d:'Escudo de academia, patrocinador ou arte própria, costurado ou termocolante.', belt:'blue',   level:'visível'},
+      {h:'Cor da faixa e da gola',    d:'Faixa customizada com o nome, gola reforçada em cor contrastante.',          belt:'purple', level:'marcante'},
+      {h:'Projeto do zero',           d:'A gente desenha um kimono só seu, do corte à última costura.',               belt:'gold',   level:'sem limite'},
+    ].map(o => ({...o, beltColor: belts[o.belt], beltBorder: bd(o.belt)}));
+
+    return { gallery, steps, options };
+  }
+
+  componentDidMount() {
+    const root = this.el || document;
+    // frozen-timeline guard: if the animation timeline never advances (capture/accessibility),
+    // reveal everything instantly so nothing stays hidden.
+    try {
+      const t0 = document.timeline.currentTime;
+      setTimeout(() => {
+        if (document.timeline.currentTime === t0) {
+          const s = document.createElement('style');
+          s.textContent = '[data-reveal]{opacity:1 !important;transform:none !important;transition:none !important;}';
+          document.head.appendChild(s);
+        }
+      }, 250);
+    } catch(e) {}
+    // hero reveal cursor
+    const stage = root.querySelector('#stage');
+    const layer = root.querySelector('#customLayer');
+    const dot = root.querySelector('#cursorDot');
+    const hint = root.querySelector('#hintHover');
+    const hasHover = window.matchMedia('(hover: hover)').matches;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const R = 150;
+    const setPos = (xPct, yPct, xpx, ypx) => {
+      if (layer) {
+        const m = `radial-gradient(circle ${R}px at ${xPct}% ${yPct}%, #000 0%, #000 56%, transparent 80%)`;
+        layer.style.webkitMaskImage = m; layer.style.maskImage = m;
+      }
+      if (dot) { dot.style.left = xPct+'%'; dot.style.top = yPct+'%'; }
+    };
+    if (stage) {
+      if (reduced) {
+        setPos(50, 45); if (hint) hint.style.display='none';
+      } else if (hasHover) {
+        stage.addEventListener('mousemove', (e) => {
+          const r = stage.getBoundingClientRect();
+          const x = (e.clientX - r.left)/r.width*100;
+          const y = (e.clientY - r.top)/r.height*100;
+          setPos(x.toFixed(1), y.toFixed(1));
+          if (dot) dot.style.opacity = '1';
+          if (hint) hint.style.opacity = '0';
+        });
+        stage.addEventListener('mouseleave', () => { setPos(50, 130); if (dot) dot.style.opacity='0'; if (hint) hint.style.opacity='1'; });
+      } else {
+        if (hint) hint.textContent = 'a arte vai aparecendo sozinha';
+        if (dot) dot.style.display='none';
+        let t = 0;
+        const loop = () => { t += 0.012; const x = 50 + 30*Math.sin(t); const y = 48 + 26*Math.cos(t*0.8); setPos(x.toFixed(1), y.toFixed(1)); this._raf = requestAnimationFrame(loop); };
+        this._raf = requestAnimationFrame(loop);
+      }
+    }
+
+    // scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold:.12});
+    const hydrateImgs = () => root.querySelectorAll('img[data-src]').forEach(i => { const s = i.getAttribute('data-src'); if (s && !s.includes('{{')) { i.src = s; i.removeAttribute('data-src'); } });
+    hydrateImgs();
+    const observeAll = () => { hydrateImgs(); root.querySelectorAll('[data-reveal]:not(.in)').forEach(el => io.observe(el)); };
+    observeAll();
+    // re-observe items mounted by sc-for after render settles
+    this._t1 = setTimeout(observeAll, 120);
+    this._t2 = setTimeout(observeAll, 600);
+    // fallback: force reveal after 4s in case IO never fires
+    this._t3 = setTimeout(() => root.querySelectorAll('[data-reveal]:not(.in)').forEach(el => el.classList.add('in')), 4000);
+    this._io = io;
+  }
+
+  componentWillUnmount() { if (this._raf) cancelAnimationFrame(this._raf); if (this._io) this._io.disconnect(); [this._t1,this._t2,this._t3].forEach(t=>clearTimeout(t)); }
+}
+</script>
+</body>
+</html>
